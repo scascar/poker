@@ -60,4 +60,3 @@ class Card:
 
 
 c = Card('8s')
-print(c.rank,c.suit)
