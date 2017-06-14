@@ -10,6 +10,8 @@ class Hand:
 			assert len(cards) == 2
 			assert type(cards[0]) is Card	
 			assert type(cards[1]) is Card	
+			assert cards[0].rank != cards[1].rank
+			assert cards[0].suit != cards[1].suit
 
 			self.cards = cards
 

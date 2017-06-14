@@ -58,5 +58,18 @@ class Card:
 		elif self.card[1] == 'd':
 			self.suit = 4
 
+	def getStr(value): #static method to get card value
+		if value == 14:
+			return 'A'
+		elif value == 13:
+			return 'K'
+		elif value == 12:
+			return 'Q'
+		elif value == 11:
+			return 'J'
+		elif value == 10:
+			return 'T'
+		else:
+			return str(value)
 
-c = Card('8s')
+
