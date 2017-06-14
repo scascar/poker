@@ -42,6 +42,17 @@ class Range:
 				self.pairs += ['K','A']
 			elif expression[0] == 'A':
 				self.pairs += ['A']
+
+	#ATo+ 
+	def getSuited(self,expression):
+		if expression[0] not in self.suited:
+			self.suited[expression[0]] = []
+
+		for i in range(Card.getValue(expression[
+		self.suited[expression[0]].append(expression[1])
+
+	
+		
 	def print(self):
 		pass	
 
