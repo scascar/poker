@@ -29,7 +29,8 @@ class Parser:
 		hand = {}
 
 		if '***** Hand History' in handText[0]:
-			hand = self.parseGeneric(handText)
+			#hand = self.parseGeneric(handText)
+			pass
 
 		elif 'PokerStars' in handText[1]:
 			hand = self.parsePokerstars(handText)
@@ -194,7 +195,7 @@ class Parser:
 
 		return ret
 
-parser = Parser('./history/')
+parser = Parser('../../Poker/history/')
 hands = parser.parseHands()
 print(len(hands),'parsed!')
 pp = pprint.PrettyPrinter(depth=6)

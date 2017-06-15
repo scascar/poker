@@ -1,6 +1,6 @@
 #!/home/oscar/anaconda3/bin/python3
 import logging
-from card import Card
+from common.card import Card
 
 class Range:
 
