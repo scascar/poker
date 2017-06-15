@@ -20,11 +20,14 @@ class Range:
 					self.pairs.append(expression[0])
 			elif len(expression) == 3:
 				if expression[0] == expression[1] and expression[2] == '+':
-					self.getPairs(expression)
+					self.setPairs(expression)
+			elif len(expression) == 4:
+				if expression[2:] == 's+':
+					self.setSuited(expression)
 					
 		self.pairs = sorted(set(self.pairs)) #remove duplicates
 
-	def getPairs(self,expression):
+	def setPairs(self,expression):
 		try:
 			treshhold = int(expression[0])
 			for i in range(treshhold,9):
@@ -43,15 +46,15 @@ class Range:
 			elif expression[0] == 'A':
 				self.pairs += ['A']
 
-	#ATo+ 
-	def getSuited(self,expression):
-		if expression[0] not in self.suited:
-			self.suited[expression[0]] = []
+	#AT+ 
+	def setSuited(self,expression):
 
-		for i in range(Card.getValue(expression[
-		self.suited[expression[0]].append(expression[1])
+		for i in range(Card.getValue(expression[0]),15):
+			if Card.getStr(i) not in self.suited:
+				self.suited[Card.getStr(i)] = []
 
-	
+			self.suited[Card.getStr(i)].append(Card.getStr(Card.getValue(expression[1])+(i-Card.getValue(expression[0]))))
+
 		
 	def print(self):
 		pass	
@@ -60,5 +63,6 @@ class Range:
 
 				
 			
-r = Range('QQ+,22,88,99,TT,AA')	
-print(r.pairs)	
+r = Range('QQ+,QJs+,J9s+,22,88,99,TT,AA')	
+print('pairs:',r.pairs)	
+print('suited:',r.suited)

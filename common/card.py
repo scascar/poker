@@ -35,9 +35,9 @@ class Card:
 			return False
 	
 	def setValues(self):
-		try:
+		if self.card[0] not in ['A','K','Q','J','T']:
 			self.rank = int(self.card[0])
-		except:
+		else:
 			if self.card[0] == 'A':
 				self.rank = 14
 			elif self.card[0] == 'K':
@@ -72,7 +72,7 @@ class Card:
 		else:
 			return str(value)
 
-	def getValue(string):#static: get card value
+	def getValue(string):#static method: get card value
 		if string not in ['A','K','Q','J','T']:
 			return int(string)
 		elif string == 'A':
