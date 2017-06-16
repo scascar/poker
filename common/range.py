@@ -146,7 +146,7 @@ class Range:
 		combos += 12*nb
 
 		print(combos)
-		return combos/26.52
+		return combos*2/26.52
 
 				
 			
