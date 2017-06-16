@@ -6,7 +6,7 @@ from pprint import pprint
 import json
 
 #with open('lightdump.json') as data_file:
-with open('common/dump.json') as data_file:
+with open('dump.json') as data_file:
 
 	data = json.load(data_file)
 

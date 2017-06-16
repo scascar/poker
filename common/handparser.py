@@ -195,7 +195,7 @@ class Parser:
 
 		return ret
 
-parser = Parser('../../Poker/history/')
+parser = Parser('../history/')
 hands = parser.parseHands()
 print(len(hands),'parsed!')
 pp = pprint.PrettyPrinter(depth=6)
