@@ -6,10 +6,18 @@ from pprint import pprint
 import json
 
 #with open('lightdump.json') as data_file:
-with open('common/dump.json') as data_file:
-
+with open('dump.json') as data_file:
 	data = json.load(data_file)
 
+values = []
+for i in data:
+	if 'infos' in i:
+		if 'stakes' in i['infos']:
+			if i['infos']['stakes'] not in values:
+				values.append(i['infos']['stakes'])
+
+print('Stakes parsed:',values)
+	
 
 ranges = [Range(''),Range(''),Range(''),Range('')]
 probas = [{},{},{},{}]
@@ -18,17 +26,17 @@ for hand in data:
 	if 'players' in hand:
 		parsedHands += 1
 		for player in hand['players']:
-			if player['name'] == 'RReivax' and player['seat'] in [4,5,6,1]:
+			if player['name'] == 'daftReivaX' and player['seat'] in [4,5,6,1]:
 				ind = (player['seat']-4)%6
 				for action in hand['actions']['PREFLOP']:
-					if action['name'] == 'RReivax' and action['type'] == 'raises':
-						h = Hand([Card(hand['cards']['RReivax'][0]),Card(hand['cards']['RReivax'][1])])  
+					if action['name'] == 'daftReivaX' and action['type'] == 'raises':
+						h = Hand([Card(hand['cards']['daftReivaX'][0]),Card(hand['cards']['daftReivaX'][1])])  
 						h = h.getStandardNotation()
 						if h not in probas[ind]:
 							probas[ind][h] = 0
 						probas[ind][h] += 1	
-					elif action['name'] == 'RReivax' and action['type'] == 'fold':
-						h = Hand([Card(hand['cards']['RReivax'][0]),Card(hand['cards']['RReivax'][1])])  
+					elif action['name'] == 'daftReivaX' and action['type'] == 'fold':
+						h = Hand([Card(hand['cards']['daftReivaX'][0]),Card(hand['cards']['daftReivaX'][1])])  
 						h = h.getStandardNotation()
 						if h not in probas[ind]:
 							probas[ind][h] = 0

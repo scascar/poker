@@ -9,6 +9,9 @@ __pycache__/
 #.json
 *.json
 
+#hands
+history/
+
 # Distribution / packaging
 .Python
 env/
