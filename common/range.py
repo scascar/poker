@@ -8,7 +8,48 @@ class Range:
 		self.pairs = []
 		self.offsuit = {}
 		self.suited = {}
+		self.combos = []	
 		self.addRange(rangeStr)
+
+	def updateCombos(self):
+		offsuitcombos = [['s', 'h'], ['s', 'd'], ['s', 'c'], ['h', 'd'], ['h', 'c'], ['d', 'c']]
+		
+		self.combos.clear()	
+		for pair in self.pairs:
+			for sc in offsuitcombos:
+				tmp=[]
+				tmp.append(Card(pair+sc[0]))
+				tmp.append(Card(pair+sc[1]))
+				self.combos.append(tmp)
+
+		for c1 in self.offsuit.keys():
+			for c2 in self.offsuit[c1]:
+				for sc in offsuitcombos:
+					tmp=[]
+					tmp.append(Card(c1+sc[0]))
+					tmp.append(Card(c2+sc[1]))
+					self.combos.append(tmp)
+					tmp=[]
+					tmp.append(Card(c1+sc[1]))
+					tmp.append(Card(c2+sc[0]))
+					self.combos.append(tmp)
+		
+		for c1 in self.suited.keys():
+			for c2 in self.suited[c1]:
+				self.combos.append([Card(c1+'s'), Card(c2+'s')])
+				self.combos.append([Card(c1+'c'), Card(c2+'c')])
+				self.combos.append([Card(c1+'h'), Card(c2+'h')])
+				self.combos.append([Card(c1+'d'), Card(c2+'d')])
+		
+		
+	def getCombos(self, printit=False):
+		self.updateCombos()
+	
+		if printit:	
+			for combo in self.combos:
+				print(combo[0].card+combo[1].card)
+
+		return self.combos
 		
 	#gets pairs, offsuited and suited from like ATs+, 99+, AJs+
 	def addRange(self, rangeStr):
