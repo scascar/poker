@@ -15,8 +15,12 @@ for i in data:
 		if 'stakes' in i['infos']:
 			if i['infos']['stakes'] not in values:
 				values.append(i['infos']['stakes'])
+			if '0,' in i['infos']['stakes'] :
+				print(i['filename'])
+		
 
 print('Stakes parsed:',values)
+
 	
 
 ranges = [Range(''),Range(''),Range(''),Range('')]

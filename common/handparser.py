@@ -156,7 +156,7 @@ class Parser:
 				ret['stakes'] = splitted[5].replace('€','').replace('$','')
 				ret['currency'] = splitted[5][0]
 			else:
-				ret['stakes'] = splitted[6].replace('€','').replace('$','')
+				ret['stakes'] = splitted[6].replace('€','').replace('$','').replace(',','.').replace('\xa0','')
 				ret['currency'] = splitted[6][0]
 			if 'Hold\'em No Limit' in infos[1]:
 				ret['game'] = 'NLHE'

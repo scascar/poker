@@ -191,7 +191,3 @@ class Range:
 
 				
 			
-#r = Range('22+,AQs+,AKo')
-#r.addRange('A2s+')
-#r.print()
-#print('Range:',r.getRangePercentage())
