@@ -3,6 +3,7 @@ from common.range import Range
 from common.hand import Hand
 from common.card import Card
 from pprint import pprint
+import operator
 import json
 
 #with open('lightdump.json') as data_file:
@@ -22,7 +23,7 @@ for i in data:
 print('Stakes parsed:',values)
 
 	
-
+players = {}
 ranges = [Range(''),Range(''),Range(''),Range('')]
 probas = [{},{},{},{}]
 parsedHands = 0
@@ -30,6 +31,14 @@ for hand in data:
 	if 'players' in hand:
 		parsedHands += 1
 		for player in hand['players']:
+			if player['name'] in players:
+				players[player['name']] += 1
+			else:
+				players[player['name']] = 1
+
+
+
+
 			if player['name'] == 'daftReivaX' and player['seat'] in [4,5,6,1]:
 				ind = (player['seat']-4)%6
 				for action in hand['actions']['PREFLOP']:
@@ -60,3 +69,10 @@ print('\n\nCU range:')
 ranges[2].print()
 print('\n\nBU range:')
 ranges[3].print()
+
+pl = sorted(players.items(), key=operator.itemgetter(1))
+print(pl)
+print('Players:      hands:')
+for k,v in pl:
+	if v > 30:
+		print(k,'      ',v)
