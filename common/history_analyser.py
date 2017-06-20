@@ -14,8 +14,14 @@ class HistoryAnalyser:
 			quit()
 		self.data = json.loads(fjsondump.read())
 		self.filtered_data = []
+	
 		self.filters = {}
 		self.filters['position'] = []
+		self.filters['stakes'] = []
+		self.filters['game'] = []
+		self.filters['size'] = []
+		self.filters['hand'] = []
+		
 		
 	
 	def setHero(self,heroName):
@@ -46,6 +52,18 @@ class HistoryAnalyser:
 					elif operands[i] == 'BB':
 						if 3 not in self.filters['position']:
 							self.filters['position'].append(3)
+			
+			elif operands[0] == 'stakes':
+				for i in range(1, len(operands)):
+					self.filters['stakes'].append(operands[i])
+			elif operands[0] == 'game':
+				for i in range(1, len(operands)):
+					self.filters['game'].append(operands[i])
+			elif operands[0] == 'size':
+				for i in range(1, len(operands)):
+					self.filters['size'].append(operands[i])
+			elif operands[0] == 'hand':
+				pass #TODO
 			else:
 				logging.warning('Unknown filter for '+filterx)
 					
@@ -55,17 +73,43 @@ class HistoryAnalyser:
 
 	def filterHands(self):	
 		for hand in self.data:
-			isFiltrate = True			
+			self._filterHand(hand)			
+
+	def _filterHand(self,hand):
+			isFiltrate = True	
+
+			# stakes eg. 0.05-0.10
+			if self.filters['stakes']:
+				if hand['infos']['stakes'] not in self.filters['stakes']:
+					return
+			# game type eg. NLHE
+			if self.filters['game']:
+				if hand['infos']['game'] not in self.filters['game']:
+					return
+			# table size eg. 6-max
+			if self.filters['size']:
+				if hand['infos']['size'] not in self.filters['size']:
+					return
+			# currency TODO
+			
+			# Starting hands
+			if self.filters['hand'] and 'cards' in hand:
+				if self.hero in hand['cards']:
+					if hand['cards'][self.hero][0]+hand['cards'][self.hero][1] not in self.filters['hand']:
+						return
+
+		
+			# filters on players info (position, name, stack)	
 			if 'players' in hand:				
+				for player in hand['players']:
 				
-				# position	
-				if self.filters['position']:					
-					for player in hand['players']:
+					# position	
+					if self.filters['position']:					
 						if player['name'] == self.hero and player['seat'] not in self.filters['position']:
-							isFiltrate = False
+							return
+					
 												
-			if isFiltrate:
-				self.filtered_data.append(hand)
+			self.filtered_data.append(hand)
 
 	def getPlayerStats(self,playerName):
 		pass
@@ -75,6 +119,6 @@ class HistoryAnalyser:
 if __name__ == '__main__':
 	HA = HistoryAnalyser('dump.json')
 	HA.setHero('daftReivaX')
-	HA.addFilter('position SB BB')
+	HA.filters['hand'].append('Ad6h')
 	HA.filterHands()
-	#print(HA.filtered_data)
+	print(HA.filtered_data)
