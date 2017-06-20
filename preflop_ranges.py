@@ -12,10 +12,10 @@ with open('dump.json') as data_file:
 values = []
 for i in data:
 	if 'infos' in i:
-		if 'stakes' in i['infos']:
-			if i['infos']['stakes'] not in values:
-				values.append(i['infos']['stakes'])
-			if '0,' in i['infos']['stakes'] :
+		if 'currency' in i['infos']:
+			if i['infos']['currency'] not in values:
+				values.append(i['infos']['currency'])
+			if '0,' in i['infos']['currency'] :
 				print(i['filename'])
 		
 

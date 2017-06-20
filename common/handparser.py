@@ -152,12 +152,8 @@ class Parser:
 		ret = {}
 		splitted = infos[0].split(' ')
 		if len(splitted) > 5:
-			if splitted[5][0] != '-': #table duplicate
-				ret['stakes'] = splitted[5].replace('€','').replace('$','')
-				ret['currency'] = splitted[5][0]
-			else:
-				ret['stakes'] = splitted[6].replace('€','').replace('$','').replace(',','.').replace('\xa0','')
-				ret['currency'] = splitted[6][0]
+			ret['stakes'] = splitted[splitted.index('-')+1].replace('€','').replace('$','')
+			ret['currency'] = splitted[splitted.index('-')+3]
 			if 'Hold\'em No Limit' in infos[1]:
 				ret['game'] = 'NLHE'
 			elif 'Omaha' in infos[1]:
